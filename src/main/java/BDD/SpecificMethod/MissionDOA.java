@@ -83,13 +83,12 @@ public class MissionDOA {
             preparedStatement.setString(1, id);
             preparedStatement.executeQuery();
             ResultSet resultSet = preparedStatement.getResultSet();
-            Mission mission = null;
-            while (resultSet.next()) {
-                mission = new Mission(resultSet.getString("Vol"), resultSet.getString("Seeker"), Mission.Status.valueOf(resultSet.getString("Status")), resultSet.getString("Opinion"), resultSet.getString("Goal"), resultSet.getString("idMission"));
+            if (resultSet.next()) {
+                return new Mission(resultSet.getString("Vol"), resultSet.getString("Seeker"), Mission.Status.valueOf(resultSet.getString("Status")), resultSet.getString("Opinion"), resultSet.getString("Goal"), resultSet.getString("idMission"));
             }
-            return mission;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 }

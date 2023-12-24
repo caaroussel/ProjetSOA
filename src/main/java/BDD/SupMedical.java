@@ -1,19 +1,19 @@
 package BDD;
 
 public class SupMedical extends SuperUser{
-    private String SuperUser;
+    private String Seek;
 
-    private SupMedical(String name, String id, String SuperUser) {
+    public SupMedical(String name, String id, String Seek) {
         super(name, id);
-        this.SuperUser = SuperUser;
+        this.Seek = Seek;
     }
 
     // Getters
-    public String getSuperUser() {
-        return SuperUser;
+    public String getSeek() {
+        return Seek;
     }
     // Setters
-    public void setSuperUser(String SuperUser) {
-        this.SuperUser = SuperUser;
+    public void setSeek(String Seek) {
+        this.Seek = Seek;
     }
 }

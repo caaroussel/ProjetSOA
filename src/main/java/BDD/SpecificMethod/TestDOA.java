@@ -38,12 +38,34 @@ public class TestDOA {
         */
 
         //Test SuperUser
+        /*
         BDD.SuperUser superUser = new BDD.SuperUser("test", UUID.randomUUID().toString());
         System.out.println("test création du superUser \n");
         SuperUserDOA superUserDOA = new SuperUserDOA(databaseAccess);
         superUserDOA.createSuperUser(superUser);
         System.out.println("test récupération du superUser \n");
         BDD.SuperUser testGet = superUserDOA.getSuperUser(superUser.getId());
+        System.out.println(testGet.getId());
+         */
+
+        //Test SeekerMedical
+        /*
+        BDD.SeekerMedical seekerMedical = new BDD.SeekerMedical("test", "test", UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        System.out.println("test création du SeekerMedical \n");
+        SeekerMedicalDOA seekerMedicalDOA = new SeekerMedicalDOA(databaseAccess);
+        seekerMedicalDOA.createSeekerMedical(seekerMedical);
+        System.out.println("test récupération du SeekerMedical \n");
+        BDD.SeekerMedical testGet = seekerMedicalDOA.getSeekerMedical(seekerMedical.getId());
+        System.out.println(testGet.getId());
+        */
+
+        //Test SupMedical
+        BDD.SupMedical supMedical = new BDD.SupMedical("test", UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        System.out.println("test création du SupMedical \n");
+        SupMedicalDOA supMedicalDOA = new SupMedicalDOA(databaseAccess);
+        supMedicalDOA.createSupMedical(supMedical);
+        System.out.println("test récupération du SupMedical \n");
+        BDD.SupMedical testGet = supMedicalDOA.getSupMedical(supMedical.getId());
         System.out.println(testGet.getId());
 
     }
