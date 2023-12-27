@@ -3,6 +3,8 @@ package BDD.SpecificMethod;
 import BDD.HelpSeeker;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelpSeekerDOA {
 
@@ -49,6 +51,21 @@ public class HelpSeekerDOA {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<HelpSeeker> getAllHelpSeekers() {
+        String query = "SELECT * FROM HelpSeeker";
+        try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<HelpSeeker> allHelpSeekers = new ArrayList<>();
+            while (resultSet.next()) {
+                allHelpSeekers.add(new HelpSeeker(resultSet.getString("Name"), resultSet.getString("Miss"), resultSet.getString("idHelpSeeker")));
+            }
+            return allHelpSeekers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

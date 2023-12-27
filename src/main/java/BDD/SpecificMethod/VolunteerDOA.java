@@ -1,8 +1,12 @@
 package BDD.SpecificMethod;
 
+import BDD.Mission;
 import BDD.Volunteer;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class VolunteerDOA {
 
     private final DatabaseAccess databaseAccess;
@@ -49,5 +53,20 @@ public class VolunteerDOA {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Volunteer> getAllVolunteers() {
+        String query = "SELECT * FROM Volunteer";
+        try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Volunteer> allVolunteer = new ArrayList<>();
+            while (resultSet.next()) {
+                allVolunteer.add(new Volunteer(resultSet.getString("Name"), resultSet.getString("Miss"), resultSet.getString("idVolunteer")));
+            }
+            return allVolunteer;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

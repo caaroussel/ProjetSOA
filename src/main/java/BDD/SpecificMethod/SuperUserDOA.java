@@ -1,7 +1,10 @@
 package BDD.SpecificMethod;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import BDD.SupMedical;
 import BDD.SuperUser;
 public class SuperUserDOA {
 
@@ -31,6 +34,21 @@ public class SuperUserDOA {
             if (resultSet.next()) {
                 return new SuperUser(resultSet.getString("Name"), resultSet.getString("idSuperUser"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<SuperUser> getAllSuperUsers() {
+        String query = "SELECT * FROM SuperUser";
+        try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<SuperUser> allSuperUsers = new ArrayList<>();
+            while (resultSet.next()) {
+                allSuperUsers.add(new SuperUser(resultSet.getString("Name"), resultSet.getString("idSuperUser")));
+            }
+            return allSuperUsers;
         } catch (SQLException e) {
             e.printStackTrace();
         }

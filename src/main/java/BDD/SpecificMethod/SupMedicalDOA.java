@@ -4,6 +4,9 @@ import BDD.SupMedical;
 import BDD.SuperUser;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SupMedicalDOA {
 
     private final DatabaseAccess databaseAccess;
@@ -52,6 +55,21 @@ public class SupMedicalDOA {
                 supMedical.setSeek(resultSet1.getString("Seek"));;
             }
             return supMedical;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<String> getAllSupMedicalIDs(){
+        String query = "SELECT idSupMedical FROM SupMedical";
+        try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<String> allSupMedicalIDs = new ArrayList<>();
+            while (resultSet.next()) {
+                allSupMedicalIDs.add(resultSet.getString("idSupMedical"));
+            }
+            return allSupMedicalIDs;
         } catch (SQLException e) {
             e.printStackTrace();
         }
