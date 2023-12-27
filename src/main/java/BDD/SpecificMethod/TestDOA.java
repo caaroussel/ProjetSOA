@@ -1,19 +1,26 @@
 package BDD.SpecificMethod;
 
+import BDD.Mission;
+
+import java.util.List;
 import java.util.UUID;
 public class TestDOA {
     public static void main(String[] args) {
         DatabaseAccess databaseAccess = new DatabaseAccess();
         //Test Mission
-        /*
+
         MissionDOA missionDOA = new MissionDOA(databaseAccess);
-        BDD.Mission mission = new BDD.Mission(UUID.randomUUID().toString(), UUID.randomUUID().toString(), BDD.Mission.Status.WAITING, "Opinion", "Goal", UUID.randomUUID().toString());
+        BDD.Mission mission = new BDD.Mission(UUID.randomUUID().toString(), UUID.randomUUID().toString(), BDD.Mission.Status.REFUSED, "Opinion", "Goal", UUID.randomUUID().toString());
         System.out.println("test création de la mission \n");
         missionDOA.createMission(mission);
         System.out.println("test récupération de la mission\n");
         BDD.Mission testGet = missionDOA.getMission(mission.getId());
-        System.out.println(testGet.getId());
-         */
+        System.out.println(testGet.getStatus());
+        List<Mission> testGetAll = missionDOA.getAllMissions();
+        for (int i = 0; i < testGetAll.size(); i++) {
+            System.out.println(testGetAll.get(i).getStatus());
+        }
+
 
         //Test Volunteer
         /*
@@ -60,6 +67,7 @@ public class TestDOA {
         */
 
         //Test SupMedical
+        /*
         BDD.SupMedical supMedical = new BDD.SupMedical("test", UUID.randomUUID().toString(), UUID.randomUUID().toString());
         System.out.println("test création du SupMedical \n");
         SupMedicalDOA supMedicalDOA = new SupMedicalDOA(databaseAccess);
@@ -67,6 +75,6 @@ public class TestDOA {
         System.out.println("test récupération du SupMedical \n");
         BDD.SupMedical testGet = supMedicalDOA.getSupMedical(supMedical.getId());
         System.out.println(testGet.getId());
-
+        */
     }
 }

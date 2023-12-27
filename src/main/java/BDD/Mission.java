@@ -4,7 +4,8 @@ public class Mission {
     public enum Status {
         WAITING,
         APPROVED,
-        DONE
+        DONE,
+        REFUSED
     }
 
     private String vol;

@@ -1,6 +1,9 @@
 package BDD.SpecificMethod;
 import BDD.Mission;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MissionDOA {
     private final DatabaseAccess databaseAccess;
@@ -90,5 +93,22 @@ public class MissionDOA {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    public List<Mission> getAllMissions(){
+        String query = "SELECT * FROM Mission";
+        try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
+            preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            List<Mission> allMissions = new ArrayList<>();
+            System.out.println("ok1");
+            while (resultSet.next()) {
+                System.out.println("ok2");
+                allMissions.add(new Mission(resultSet.getString("Vol"), resultSet.getString("Seeker"), Mission.Status.valueOf(resultSet.getString("Status")), resultSet.getString("Opinion"), resultSet.getString("Goal"), resultSet.getString("idMission")));
+            }
+            return allMissions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
