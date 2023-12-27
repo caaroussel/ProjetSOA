@@ -17,8 +17,8 @@ public class TestDOA {
         BDD.Mission testGet = missionDOA.getMission(mission.getId());
         System.out.println(testGet.getStatus());
         List<Mission> testGetAll = missionDOA.getAllMissions();
-        for (int i = 0; i < testGetAll.size(); i++) {
-            System.out.println(testGetAll.get(i).getStatus());
+        for (Mission value : testGetAll) {
+            System.out.println(value.getStatus());
         }
 
 
