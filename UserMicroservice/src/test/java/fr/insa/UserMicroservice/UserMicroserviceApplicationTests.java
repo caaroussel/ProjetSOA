@@ -1,10 +1,10 @@
-package ProjetSOA.MissionMS;
+package fr.insa.UserMicroservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MissionMsApplicationTests {
+class UserMicroserviceApplicationTests {
 
 	@Test
 	void contextLoads() {

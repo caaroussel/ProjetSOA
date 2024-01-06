@@ -9,13 +9,13 @@ import java.util.List;
 
 public class VolunteerDOA {
 
-    private final DatabaseAccess databaseAccess;
+    private static DatabaseAccess databaseAccess;
 
     public VolunteerDOA(DatabaseAccess databaseAccess) {
         this.databaseAccess = databaseAccess;
     }
 
-    public void createVolunteer(Volunteer volunteer)
+    public static void createVolunteer(Volunteer volunteer)
     {
         String query = "INSERT INTO Volunteer (idVolunteer, Name, Miss) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
@@ -29,7 +29,7 @@ public class VolunteerDOA {
         }
     }
 
-    public Volunteer getVolunteer(String id) {
+    public static Volunteer getVolunteer(String id) {
         String query = "SELECT * FROM Volunteer WHERE idVolunteer = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, id);
@@ -43,7 +43,7 @@ public class VolunteerDOA {
         return null;
     }
 
-    public void updateVolunteerMission(String Miss, String id) {
+    public static void updateVolunteerMission(String Miss, String id) {
         String query = "UPDATE Volunteer SET Miss = ? WHERE idVolunteer = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, Miss);
@@ -55,7 +55,7 @@ public class VolunteerDOA {
         }
     }
 
-    public List<Volunteer> getAllVolunteers() {
+    public static List<Volunteer> getAllVolunteers() {
         String query = "SELECT * FROM Volunteer";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();

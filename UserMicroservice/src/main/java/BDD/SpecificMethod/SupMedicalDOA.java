@@ -9,13 +9,13 @@ import java.util.List;
 
 public class SupMedicalDOA {
 
-    private final DatabaseAccess databaseAccess;
+    private static DatabaseAccess databaseAccess;
 
     public SupMedicalDOA(DatabaseAccess databaseAccess) {
         this.databaseAccess = databaseAccess;
     }
 
-    public void createSupMedical(SupMedical supMedical){
+    public static void createSupMedical(SupMedical supMedical){
         // création du SuperUser
         SuperUser superUser = new SuperUser(supMedical.getName(), supMedical.getId());
         SuperUserDOA superUserDOA = new SuperUserDOA(databaseAccess);
@@ -31,7 +31,7 @@ public class SupMedicalDOA {
         }
     }
 
-    public void updateSeek(String id, String Seek){
+    public static void updateSeek(String id, String Seek){
         String query = "UPDATE SupMedical SET Seek = ? WHERE idSupMedical = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, Seek);
@@ -43,7 +43,7 @@ public class SupMedicalDOA {
         }
     }
 
-    public SupMedical getSupMedical(String id){
+    public static SupMedical getSupMedical(String id){
         String query = "SELECT * FROM SupMedical WHERE idSupMedical = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, id);
@@ -61,7 +61,7 @@ public class SupMedicalDOA {
         return null;
     }
 
-    public List<String> getAllSupMedicalIDs(){
+    public static List<SupMedical> getAllSupMedical(){
         String query = "SELECT idSupMedical FROM SupMedical";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -69,7 +69,11 @@ public class SupMedicalDOA {
             while (resultSet.next()) {
                 allSupMedicalIDs.add(resultSet.getString("idSupMedical"));
             }
-            return allSupMedicalIDs;
+            List<SupMedical> allSupMedicals = new ArrayList<>();
+            for (String id : allSupMedicalIDs) {
+                allSupMedicals.add(getSupMedical(id));
+            }
+            return allSupMedicals;
         } catch (SQLException e) {
             e.printStackTrace();
         }

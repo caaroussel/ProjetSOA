@@ -8,30 +8,25 @@
 		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>ProjetSOA</groupId>
-	<artifactId>MissionMS</artifactId>
+	<groupId>fr.insa</groupId>
+	<artifactId>UserMicroservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>MissionMS</name>
-	<description>MicroService Missions</description>
+	<name>UserMicroservice</name>
+	<description>The micro service User for SOA project</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		
+    	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version>
 		</dependency>
 	</dependencies>
 

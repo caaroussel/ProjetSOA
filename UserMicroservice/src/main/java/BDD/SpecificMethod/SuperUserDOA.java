@@ -8,13 +8,13 @@ import BDD.SupMedical;
 import BDD.SuperUser;
 public class SuperUserDOA {
 
-    private final DatabaseAccess databaseAccess;
+    private static DatabaseAccess databaseAccess;
 
     public SuperUserDOA(DatabaseAccess databaseAccess) {
         this.databaseAccess = databaseAccess;
     }
 
-    public void createSuperUser(SuperUser superUser){
+    public static void createSuperUser(SuperUser superUser){
         String query = "INSERT INTO SuperUser (idSuperUser, Name) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, superUser.getId());
@@ -26,7 +26,7 @@ public class SuperUserDOA {
         }
     }
 
-    public SuperUser getSuperUser(String id) {
+    public static SuperUser getSuperUser(String id) {
         String query = "SELECT * FROM SuperUser WHERE idSuperUser = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, id);
@@ -40,7 +40,7 @@ public class SuperUserDOA {
         return null;
     }
 
-    public List<SuperUser> getAllSuperUsers() {
+    public static List<SuperUser> getAllSuperUsers() {
         String query = "SELECT * FROM SuperUser";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();

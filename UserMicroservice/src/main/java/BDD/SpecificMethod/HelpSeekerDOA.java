@@ -8,13 +8,13 @@ import java.util.List;
 
 public class HelpSeekerDOA {
 
-    private final DatabaseAccess databaseAccess;
+    private static DatabaseAccess databaseAccess;
 
     public HelpSeekerDOA(DatabaseAccess databaseAccess) {
         this.databaseAccess = databaseAccess;
     }
 
-    public void createHelpSeeker(HelpSeeker helpSeeker){
+    public static void createHelpSeeker(HelpSeeker helpSeeker){
         String query = "INSERT INTO HelpSeeker (idHelpSeeker, Name, Miss) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, helpSeeker.getId());
@@ -27,7 +27,7 @@ public class HelpSeekerDOA {
         }
     }
 
-    public HelpSeeker getHelpSeeker(String id) {
+    public static HelpSeeker getHelpSeeker(String id) {
         String query = "SELECT * FROM HelpSeeker WHERE idHelpSeeker = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, id);
@@ -41,7 +41,7 @@ public class HelpSeekerDOA {
         return null;
     }
 
-    public void updateHelpSeekerMission(String Miss, String id) {
+    public static void updateHelpSeekerMission(String Miss, String id) {
         String query = "UPDATE HelpSeeker SET Miss = ? WHERE idHelpSeeker = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, Miss);
@@ -53,7 +53,7 @@ public class HelpSeekerDOA {
         }
     }
 
-    public List<HelpSeeker> getAllHelpSeekers() {
+    public static List<HelpSeeker> getAllHelpSeekers() {
         String query = "SELECT * FROM HelpSeeker";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();

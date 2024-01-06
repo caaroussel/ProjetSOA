@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SeekerMedicalDOA {
-    private final DatabaseAccess databaseAccess;
+    private static DatabaseAccess databaseAccess;
 
     public SeekerMedicalDOA(DatabaseAccess databaseAccess) {
         this.databaseAccess = databaseAccess;
     }
 
-    public void createSeekerMedical(SeekerMedical seekerMedical){
+    public static void createSeekerMedical(SeekerMedical seekerMedical){
         // création du demandeur
         HelpSeeker helpSeeker = new HelpSeeker(seekerMedical.getName(), seekerMedical.getMiss(), seekerMedical.getId());
         HelpSeekerDOA helpSeekerDOA = new HelpSeekerDOA(databaseAccess);
@@ -31,7 +31,7 @@ public class SeekerMedicalDOA {
         }
     }
 
-    public void updateSeekerMedicalSup(String Sup, String id) {
+    public static void updateSeekerMedicalSup(String Sup, String id) {
         String query = "UPDATE SeekerMedical SET Sup = ? WHERE idSeekerMedical = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, Sup);
@@ -43,7 +43,7 @@ public class SeekerMedicalDOA {
         }
     }
 
-    public SeekerMedical getSeekerMedical(String id){
+    public static SeekerMedical getSeekerMedical(String id){
         String query = "SELECT * FROM SeekerMedical WHERE idSeekerMedical = ?";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, id);
@@ -61,7 +61,7 @@ public class SeekerMedicalDOA {
         return null;
     }
 
-    public List<String> getAllSeekMedicalIDs (){
+    public static List<SeekerMedical> getAllSeekMedical (){
         String query = "SELECT idSeekerMedical FROM SeekerMedical";
         try (PreparedStatement preparedStatement = databaseAccess.getConnection().prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -69,7 +69,11 @@ public class SeekerMedicalDOA {
             while (resultSet.next()) {
                 allSeekerMedicalIDs.add(resultSet.getString("idSeekerMedical"));
             }
-            return allSeekerMedicalIDs;
+            List<SeekerMedical> allSeekerMedicals = new ArrayList<>();
+            for (String id : allSeekerMedicalIDs) {
+                allSeekerMedicals.add(getSeekerMedical(id));
+            }
+            return allSeekerMedicals;
         } catch (SQLException e) {
             e.printStackTrace();
         }
